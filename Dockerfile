@@ -1,6 +1,7 @@
 # Build stage with Spack pre-installed and ready to be used
 FROM spack/rockylinux9:latest AS builder
 
+RUN dnf install -y diffutils && dnf clean all
 
 # What we want to install and how we want to install it
 # is specified in a manifest file (spack.yaml)
