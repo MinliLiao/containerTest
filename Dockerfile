@@ -23,13 +23,6 @@ set -o noclobber \
 # Install the software, remove unnecessary deps
 RUN cd /opt/spack-environment && spack env activate . && spack install --fail-fast && spack gc -y
 
-# Strip all the binaries
-RUN find -L /opt/views/view/* -type f -exec readlink -f '{}' \; | \
-    xargs file -i | \
-    grep 'charset=binary' | \
-    grep 'x-executable\|x-archive\|x-sharedlib' | \
-    awk -F: '{print $1}' | xargs strip
-
 # Modifications to the environment that are necessary to run
 RUN cd /opt/spack-environment && \
     spack env activate --sh -d . > activate.sh
@@ -52,5 +45,5 @@ RUN { \
 
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "sleep", "infinity" ]
+CMD [ "/bin/bash" ]
 
