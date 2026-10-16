@@ -52,5 +52,5 @@ RUN { \
 
 
 ENTRYPOINT [ "/entrypoint.sh" ]
-CMD [ "/bin/bash" ]
+CMD [ "sleep", "infinity" ]
 
