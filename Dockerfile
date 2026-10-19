@@ -31,6 +31,7 @@ RUN cd /opt/spack-environment && \
 # Bare OS image to run the installed executables
 FROM docker.io/rockylinux:9
 
+COPY --from=builder /opt/spack /opt/spack
 COPY --from=builder /opt/spack-environment /opt/spack-environment
 COPY --from=builder /opt/software /opt/software
 COPY --from=builder /opt/views /opt/views
