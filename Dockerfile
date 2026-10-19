@@ -13,6 +13,8 @@ set -o noclobber \
 &&   echo '  - openmpi' \
 &&   echo '  - bubblewrap' \
 &&   echo '  - socat' \
+&&   echo '  - amrex' \
+&&   echo '  - hdf5' \
 &&   echo '  view: /opt/views/view' \
 &&   echo '  concretizer:' \
 &&   echo '    unify: true' \
@@ -30,6 +32,8 @@ RUN cd /opt/spack-environment && \
 
 # Bare OS image to run the installed executables
 FROM docker.io/rockylinux:9
+
+RUN dnf install -y diffutils make git gfortran && dnf clean all
 
 COPY --from=builder /opt/spack /opt/spack
 COPY --from=builder /opt/spack-environment /opt/spack-environment
