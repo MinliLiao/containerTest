@@ -11,8 +11,6 @@ set -o noclobber \
 &&   echo '  # add package specs to the `specs` list' \
 &&   echo '  specs:' \
 &&   echo '  - openmpi' \
-&&   echo '  - bubblewrap' \
-&&   echo '  - socat' \
 &&   echo '  - amrex' \
 &&   echo '  - hdf5' \
 &&   echo '  view: /opt/views/view' \
@@ -33,7 +31,10 @@ RUN cd /opt/spack-environment && \
 # Bare OS image to run the installed executables
 FROM docker.io/rockylinux:9
 
-RUN dnf install -y diffutils make git gfortran && dnf clean all
+# Needed to build FlashX
+RUN dnf install -y make git gfortran && dnf clean all
+# Probably need?
+RUN dnf install -y diffutils && dnf clean all
 
 COPY --from=builder /opt/spack /opt/spack
 COPY --from=builder /opt/spack-environment /opt/spack-environment
